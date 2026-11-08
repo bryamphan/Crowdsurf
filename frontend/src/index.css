@@ -1,0 +1,15 @@
+/*
+  Global styles that apply to every page. Keep this small; styles for a
+  single page or component belong next to that page or component.
+  color-scheme: light dark makes the page follow the phone's dark mode setting.
+*/
+
+:root {
+  font-family: system-ui, -apple-system, sans-serif;
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  padding: 16px;
+}

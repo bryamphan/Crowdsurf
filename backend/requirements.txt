@@ -1,0 +1,12 @@
+# Libraries the backend needs to run. Install with: pip install -r requirements-dev.txt
+# When you add a library, add it here (or to requirements-dev.txt if it's only for
+# testing/linting) in the same PR that uses it. Auth will need a password hashing
+# library and a JWT library.
+fastapi>=0.115
+uvicorn[standard]>=0.32
+pydantic-settings>=2.6
+sqlalchemy[asyncio]>=2.0.36
+asyncpg>=0.30
+alembic>=1.14
+redis>=5.2
+httpx>=0.28

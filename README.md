@@ -16,7 +16,7 @@ Every house party has the same problem: one person has the aux and everyone else
 
 ## Design
 
-Postgres is the source of truth. Redis will handle the stuff that changes constantly:
+Postgres is our source of truth. Redis will handle the stuff that changes constantly:
 
 - Each room's queue is a Redis sorted set (`room:{id}:queue`). A vote is a `ZINCRBY` and reading the queue is a single `ZREVRANGE`, so we aren't sorting in SQL on every request. If Redis gets wiped, we can rebuild it from Postgres.
 - Vote and queue events are published to a `room:{id}` channel. That lets us run more than one API server behind a load balancer, with each one pushing updates to whichever WebSocket clients it's holding.
@@ -70,17 +70,24 @@ Six tables: `hosts`, `rooms`, `guests`, `tracks`, `queue_items`, and `votes`.
 
 ## Running it
 
-TBA. Once the code is in, the plan is:
+You need Docker.
 
 ```bash
 cp .env.example .env
 docker compose up --build
 ```
 
-The API will be on http://localhost:8000 and the frontend on http://localhost:5173.
+The API is on http://localhost:8000 (docs at `/docs`) and the frontend is on http://localhost:5173. Right now every endpoint is a stub that returns `501`. See [CONTRIBUTING.md](CONTRIBUTING.md) for running things outside Docker and for how we work.
+
+## Docs
+
+- [Roadmap and who owns what](docs/roadmap.md)
+- [Contributing](CONTRIBUTING.md)
+- [Design decisions](docs/decisions/)
 
 ## Team
 
-- Bryan Pham (point of contact)
+- Bryan Pham
+- TBD
 - TBD
 - TBD
