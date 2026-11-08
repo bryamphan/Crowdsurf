@@ -1,20 +1,4 @@
-"""Playback endpoints and the live WebSocket stream.
-
-Owner: real-time and playback.
-
-What's left to do:
-- Replace each _todo() stub with a real implementation.
-- POST /next (host only): mark the current song "played", take the top song from the
-  Redis sorted set, mark it "playing", remove it from the set, and publish an event.
-- GET /now-playing and GET /history read queue_items by status. Add schemas in
-  schemas/playback.py.
-- WebSocket /stream: accept the connection, subscribe to the room:{id} channel with
-  services/pubsub.py, and forward every event to the client until it disconnects.
-  Because events go through Redis, this works even with several API servers running.
-- Room expiry: rooms expire after ROOM_TTL_HOURS (core/config.py). Write a background job
-  (e.g. services/expiry.py) and start it from main.py.
-- Add tests in tests/test_playback.py.
-"""
+"""Playback endpoints and the live WebSocket stream."""
 
 from fastapi import APIRouter, HTTPException, WebSocket, status
 

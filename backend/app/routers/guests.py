@@ -1,17 +1,4 @@
-"""Guest endpoints: join a room, list who's in it, and kick someone.
-
-Owner: rooms, guests, and search.
-
-What's left to do:
-- Replace each _todo() stub with a real implementation.
-- Add schemas in schemas/guest.py (e.g. JoinRequest with a nickname, JoinResponse with
-  the guest token, GuestOut).
-- Joining creates a guest row and returns a token from core/security.py. Store only a
-  hash of the token, never the raw value.
-- Reject joins to rooms that are locked, closed, or expired.
-- Kicking is host only (get_current_host). A kicked guest's token must stop working.
-- Add tests in tests/test_guests.py.
-"""
+"""Guest endpoints: join a room, list who's in it, and kick someone."""
 
 from fastapi import APIRouter, HTTPException, status
 

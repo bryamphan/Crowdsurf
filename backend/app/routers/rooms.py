@@ -1,17 +1,4 @@
-"""Room endpoints: create, look up, update, and close a party room.
-
-Owner: rooms, guests, and search.
-
-What's left to do:
-- Replace each _todo() stub with a real implementation.
-- Add request/response schemas in schemas/room.py (e.g. RoomCreate, RoomUpdate, RoomOut).
-- Put the logic in services/ (e.g. join code generation in services/join_codes.py),
-  and keep these functions short: parse the request, call a service, return a schema.
-- Protect create/update/close with the get_current_host dependency from core/security.py,
-  and make sure a host can only change their own rooms.
-- Look up by join code (GET /rooms/{code}) is public, since guests use it from the QR code.
-- Add tests in tests/test_rooms.py.
-"""
+"""Room endpoints: create, look up, update, and close a party room."""
 
 from fastapi import APIRouter, HTTPException, status
 
