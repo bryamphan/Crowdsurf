@@ -233,22 +233,6 @@ crowdsurf/
 
 ---
 
-## Roadmap
-
-- [ ] Room creation and join codes
-- [ ] Guest sessions and tokens
-- [ ] Song search with caching
-- [ ] Queue and voting with Redis ranking
-- [ ] WebSocket live updates
-- [ ] Host controls (skip, remove, lock, kick)
-- [ ] Per-guest limits (max songs in the queue)
-- [ ] Auto-skip when 50% of guests downvote
-- [ ] Export a room's playlist
-- [ ] Optional Spotify playback for hosts with Premium
-- [ ] PWA support ("Add to Home Screen")
-
----
-
 ## Team
 
 | Name | Role |
