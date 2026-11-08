@@ -79,12 +79,6 @@ docker compose up --build
 
 The API is on http://localhost:8000 (docs at `/docs`) and the frontend is on http://localhost:5173. Right now every endpoint is a stub that returns `501`. See [CONTRIBUTING.md](CONTRIBUTING.md) for running things outside Docker and for how we work.
 
-## Docs
-
-- [Roadmap and who owns what](docs/roadmap.md)
-- [Contributing](CONTRIBUTING.md)
-- [Design decisions](docs/decisions/)
-
 ## Team
 
 - Bryan Pham
