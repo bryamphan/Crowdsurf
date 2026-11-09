@@ -1,9 +1,4 @@
 // Join page, shown at /join/:code. Guests land here after scanning the QR code.
-//
-// Placeholder for now. When built, it will:
-//   - read the join code from the URL (useParams)
-//   - let the guest pick a nickname and call POST /rooms/{code}/join
-//   - save the guest token it gets back and send the guest to /room/:roomId
 
 import { useParams } from "react-router-dom";
 

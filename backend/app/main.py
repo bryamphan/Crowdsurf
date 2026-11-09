@@ -2,10 +2,6 @@
 
 Creates the FastAPI app, sets up CORS so the frontend can call the API, and registers
 every router. All API routes live under /api/v1; the health checks live at /health.
-
-What's left to do:
-- Register new routers here as they're added (e.g. an auth router for host signup/login).
-- Start background jobs on startup, such as the room expiry job.
 """
 
 from fastapi import APIRouter, FastAPI

@@ -3,11 +3,6 @@
 test_api_contract_is_registered fails if someone deletes or renames an endpoint by
 accident. If the team agrees to change an endpoint, update the list below in the
 same PR.
-
-What's left to do:
-- Add a test file per area next to this one (test_rooms.py, test_guests.py,
-  test_tracks.py, test_queue.py, test_playback.py, test_auth.py).
-- Each endpoint should have at least a happy-path test and one failure test.
 """
 
 from fastapi.testclient import TestClient

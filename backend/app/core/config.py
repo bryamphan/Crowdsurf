@@ -2,10 +2,6 @@
 
 Use get_settings() anywhere you need a setting, e.g. get_settings().room_ttl_hours.
 Never hardcode secrets or URLs in the code.
-
-What's left to do:
-- When you need a new setting, add it to the Settings class below with a default,
-  and add it to .env.example at the root of the repo so teammates know it exists.
 """
 
 from functools import lru_cache
