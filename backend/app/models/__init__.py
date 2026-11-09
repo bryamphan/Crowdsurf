@@ -6,7 +6,9 @@ What's left to do:
   The README's "Data model" section lists the fields and constraints.
 - Import every model here. If a model isn't imported here, Alembic can't see it and
   won't generate a migration for it.
-- After changing a model, generate a migration (see CONTRIBUTING.md).
+- After changing a model, generate a migration from backend/:
+    alembic revision --autogenerate -m "describe the change"
+    alembic upgrade head
 """
 
 from app.models.base import Base

@@ -1,0 +1,6 @@
+# Keep local-only files out of the Docker image. The image runs `npm ci` to
+# install Linux versions of every package; copying your local node_modules
+# would overwrite them with Mac/Windows versions and break the dev server.
+node_modules/
+dist/
+.env

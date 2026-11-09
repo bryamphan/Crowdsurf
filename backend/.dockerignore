@@ -1,0 +1,11 @@
+# Keep local-only files out of the Docker image. The image installs its own
+# packages, so your local virtualenv and caches would only slow the build down.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.env
