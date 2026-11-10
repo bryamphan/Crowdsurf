@@ -185,9 +185,11 @@ These are the spots where one person's code depends on another's. Agree on them 
 
 Because we'll be working in our own directories, you are allowed push directly to `main`. Just please make sure your work doesn't collide with someone else's section, and if it does, let them know in the discord.
 
-### What does CI check?
+### Before You Push
 
-Every push runs these on GitHub. Please make sure that you're tests pass (there's a green checkmark after you push).
+Before every push, run these from /backend (with .venv active) and push only if they pass. Please make sure that you're tests pass (there's a green checkmark after you push).
+
+The ruff commands are for formatting our code to make sure all of our code is consistent. For a project likes ours, Ruff is the most common choice for formatting.
 
 - **Backend:** `ruff check .` (code quality), `ruff format --check .` (formatting), `alembic upgrade head` (migrations apply to a real Postgres), and `pytest`.
 - **Frontend:** `npm ci` and `npm run build`.
