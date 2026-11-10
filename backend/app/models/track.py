@@ -15,4 +15,3 @@ class Track(Base):
     album_art_url: Mapped[str | None] = mapped_column(String(500))
     preview_url: Mapped[str | None] = mapped_column(String(500))
     duration_ms: Mapped[int | None] = mapped_column(Integer)
-    
