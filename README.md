@@ -67,6 +67,7 @@ Six tables: `hosts`, `rooms`, `guests`, `tracks`, `queue_items`, and `votes`.
 - `rooms.join_code` is unique, since that's what's in the QR code.
 - Guest tokens are stored hashed, same as host passwords.
 - A queue item moves through `queued` → `playing` → `played`, or gets marked `removed`.
+- Closing a room sets `rooms.closed_at` instead of deleting the row, so its guests, queue, and history are kept.
 
 ## Running it
 
