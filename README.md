@@ -84,6 +84,6 @@ The API is on http://localhost:8000 (docs at `/docs`) and the frontend is on htt
 ## Team
 
 - Bryan Pham
-- TBD
+- Leila De Belen
 - TBD
 - TBD
