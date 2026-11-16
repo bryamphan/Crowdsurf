@@ -44,6 +44,8 @@ jobs:
         run: ruff check . && ruff format --check .
       - name: Migrations apply cleanly
         run: alembic upgrade head
+      - name: Models match migrations
+        run: alembic check
       - name: Tests
         run: pytest -q
 

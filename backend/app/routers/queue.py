@@ -31,4 +31,3 @@ async def remove_from_queue(room_id: int, item_id: int):
 async def vote(room_id: int, item_id: int):
     """Cast or change a vote: 1, -1, or 0 to clear. Idempotent."""
     _todo()
-    

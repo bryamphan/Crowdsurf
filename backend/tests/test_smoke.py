@@ -5,22 +5,16 @@ accident. If the team agrees to change an endpoint, update the list below in the
 same PR.
 """
 
-from fastapi.testclient import TestClient
 
-from app.main import app
-
-client = TestClient(app)
-
-
-def test_health():
-    resp = client.get("/health")
+async def test_health(client):
+    resp = await client.get("/health")
     assert resp.status_code == 200
     assert resp.json() == {"status": "ok"}
 
 
-def test_api_contract_is_registered():
+async def test_api_contract_is_registered(client):
     """Every endpoint in the README should exist, even if it's still a stub."""
-    paths = client.get("/openapi.json").json()["paths"]
+    paths = (await client.get("/openapi.json")).json()["paths"]
     expected = {
         "/api/v1/rooms": {"post"},
         "/api/v1/rooms/{code}": {"get"},

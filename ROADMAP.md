@@ -216,6 +216,34 @@ When you add or change a model in `backend/app/models/`:
 4. Read the generated file in `alembic/versions/` before committing it. Autogenerate sometimes misses things.
 5. Say in Discord when you're merging a migration.
 
+CI also runs `alembic check`, which fails if you changed a model but didn't generate a migration for it.
+
+### Writing Tests
+
+All the setup lives in `backend/tests/conftest.py`. Don't import it; just name the fixture you want as a test argument and pytest hands it to you. Tests can be `async def` with no decorator.
+
+```python
+async def test_kick_guest(client, make_room, make_guest):
+    room = await make_room()
+    guest = await make_guest(room=room, nickname="dj")
+    resp = await client.delete(f"/api/v1/rooms/{room.id}/guests/{guest.id}")
+    assert resp.status_code == 204
+```
+
+| Fixture | What it gives you |
+|---|---|
+| `client` | Calls the API in memory, no server needed. `await client.get(...)` |
+| `session` | A database session. Everything written is undone after the test, even commits. |
+| `redis` | Redis on a separate test DB, emptied after each test. |
+| `http_mock` | Fakes outgoing HTTP like iTunes. Real requests are blocked in every test. |
+| `make_host`, `make_room`, `make_guest`, `make_track`, `make_queue_item`, `make_vote` | Create a valid row. Override any column, e.g. `make_room(is_locked=True)`. Missing parent rows are created for you. |
+
+- Tests use their own `crowdsurf_test` database (created automatically) and Redis DB 15, so running `pytest` never touches your dev data. You just need `docker compose up db redis` running.
+- Rows from `make_*` are visible to the endpoints `client` calls, because they share the same session.
+- Faking iTunes: `http_mock.get("https://itunes.apple.com/search").respond(json={...})`.
+- Pub/sub channels aren't separated by Redis DB number, so pub/sub tests should use room IDs no other test uses.
+- If a test in `test_fixtures.py` fails, the shared setup is broken, not your feature.
+
 ### Adding a setting or a library
 
 - **New setting:** add it to the `Settings` class in `backend/app/core/config.py` with a default, and to `.env.example` so everyone knows it exists. Never hardcode secrets or URLs.
