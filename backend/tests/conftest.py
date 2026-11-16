@@ -17,9 +17,9 @@ Fixtures:
 
 Tests run against a separate `crowdsurf_test` database (created automatically) and
 Redis DB 15, so running pytest never touches your local dev data.
+    auth_headers    auth_headers(host_or_guest) -> {"Authorization": "Bearer ..."}
 """
 
-import hashlib
 import itertools
 import os
 from datetime import UTC, datetime, timedelta
@@ -36,6 +36,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from app.core.config import get_settings
 from app.core.db import get_session
 from app.core.redis import get_redis
+from app.core.security import create_host_token, hash_guest_token
 from app.main import app
 from app.models import Base, Guest, Host, QueueItem, Room, Track, Vote
 
@@ -153,6 +154,24 @@ def http_mock():
         yield mock
 
 
+# --- Auth -------------------------------------------------------------------------
+
+
+@pytest.fixture
+def auth_headers():
+    """Headers that log a request in as a host or guest from the make_* fixtures:
+
+    host = await make_host()
+    await client.post("/api/v1/rooms", json={...}, headers=auth_headers(host))
+    """
+
+    def _headers(user: Host | Guest) -> dict[str, str]:
+        token = create_host_token(user.id) if isinstance(user, Host) else user.token
+        return {"Authorization": f"Bearer {token}"}
+
+    return _headers
+
+
 # --- Factories --------------------------------------------------------------------
 # Each one adds a row, flushes it (so it gets an id), and returns the model object.
 # Pass any column as a keyword to override the default. Parent rows are created for
@@ -200,10 +219,13 @@ def make_guest(session, make_room):
         n = next(_counter)
         if "room_id" not in fields:
             fields["room_id"] = (room or await make_room()).id
+        token = f"test-token-{n}"
         fields.setdefault("nickname", f"guest{n}")
-        fields.setdefault("token_hash", hashlib.sha256(f"test-token-{n}".encode()).hexdigest())
+        fields.setdefault("token_hash", hash_guest_token(token))
         fields.setdefault("is_kicked", False)
-        return await _save(session, Guest(**fields))
+        guest = await _save(session, Guest(**fields))
+        guest.token = token  # the raw token, for auth_headers(); not a database column
+        return guest
 
     return _make
 

@@ -16,7 +16,8 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+asyncpg://crowdsurf:crowdsurf@localhost:5432/crowdsurf"
     redis_url: str = "redis://localhost:6379/0"
-    jwt_secret: str = "change-me"
+    jwt_secret: str = "change-me-to-a-long-random-string-in-production"
+    host_token_ttl_hours: int = 24
 
     room_ttl_hours: int = 12
     vote_rate_limit: int = 10
