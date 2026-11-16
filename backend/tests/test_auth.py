@@ -162,5 +162,4 @@ def test_guest_tokens_are_random_and_stored_hashed():
 
 def test_host_token_round_trip():
     assert decode_host_token(create_host_token(42)) == 42
-    assert decode_host_token("garbage") is Non
-    
+    assert decode_host_token("garbage") is None
