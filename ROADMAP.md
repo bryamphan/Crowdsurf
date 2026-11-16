@@ -49,7 +49,7 @@ The first run takes a few minutes. When it's up, check:
 - http://localhost:8000/docs lists every endpoint (Swagger). You'll use this page constantly to test the backend.
 - http://localhost:5173 shows the frontend
 
-Every endpoint currently returns `501 Not Implemented`. That's expected. They're stubs waiting to be built.
+Apart from the auth endpoints, every endpoint currently returns `501 Not Implemented`. That's expected. They're stubs waiting to be built.
 
 Stop everything with `Ctrl+C` or `docker compose down`. Your code edits reload automatically while it's running; no need to restart.
 
@@ -236,6 +236,7 @@ async def test_kick_guest(client, make_room, make_guest):
 | `session` | A database session. Everything written is undone after the test, even commits. |
 | `redis` | Redis on a separate test DB, emptied after each test. |
 | `http_mock` | Fakes outgoing HTTP like iTunes. Real requests are blocked in every test. |
+| `auth_headers` | Log a request in as a host or guest: `client.get(url, headers=auth_headers(host))` |
 | `make_host`, `make_room`, `make_guest`, `make_track`, `make_queue_item`, `make_vote` | Create a valid row. Override any column, e.g. `make_room(is_locked=True)`. Missing parent rows are created for you. |
 
 - Tests use their own `crowdsurf_test` database (created automatically) and Redis DB 15, so running `pytest` never touches your dev data. You just need `docker compose up db redis` running.

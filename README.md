@@ -28,6 +28,11 @@ We'll also rate-limit votes per guest, cache search results so we stay under iTu
 Planned endpoints, all under `/api/v1`. Once the server is running, FastAPI serves interactive docs at `/docs`.
 
 ```
+Auth (hosts)
+  POST    /auth/signup                      create a host account, returns a token
+  POST    /auth/login                       log in, returns a token
+  GET     /auth/me                          the logged-in host
+
 Rooms
   POST    /rooms                            create a room (host)
   GET     /rooms/{code}                     look up a room by join code
@@ -57,6 +62,8 @@ Live updates
   WS      /rooms/{id}/stream
 ```
 
+Host-only endpoints need `Authorization: Bearer <token>` with the token from signup or login. Guest endpoints use the guest token returned by `POST /rooms/{code}/join` the same way.
+
 Voting is a `PUT` on purpose. Sending the same vote twice doesn't count twice, and sending `0` takes your vote back.
 
 ## Data model
@@ -79,7 +86,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-The API is on http://localhost:8000 (docs at `/docs`) and the frontend is on http://localhost:5173. Right now every endpoint is a stub that returns `501`.
+The API is on http://localhost:8000 (docs at `/docs`) and the frontend is on http://localhost:5173. Right now the auth endpoints work; the rest are stubs that return `501`.
 
 ## Team
 
