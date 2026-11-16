@@ -16,6 +16,9 @@ async def test_api_contract_is_registered(client):
     """Every endpoint in the README should exist, even if it's still a stub."""
     paths = (await client.get("/openapi.json")).json()["paths"]
     expected = {
+        "/api/v1/auth/signup": {"post"},
+        "/api/v1/auth/login": {"post"},
+        "/api/v1/auth/me": {"get"},
         "/api/v1/rooms": {"post"},
         "/api/v1/rooms/{code}": {"get"},
         "/api/v1/rooms/{room_id}": {"patch", "delete"},
