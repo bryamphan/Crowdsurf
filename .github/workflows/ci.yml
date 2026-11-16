@@ -31,7 +31,7 @@ jobs:
     env:
       DATABASE_URL: postgresql+asyncpg://crowdsurf:crowdsurf@localhost:5432/crowdsurf
       REDIS_URL: redis://localhost:6379/0
-      JWT_SECRET: ci-secret
+      JWT_SECRET: ci-secret-that-is-at-least-32-bytes-long
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -11,13 +11,13 @@ Fixtures:
     client          httpx client that calls the app in memory (no server needed)
     session         database session; everything it writes is undone after the test
     redis           Redis client on a separate test DB, emptied after the test
+    auth_headers    auth_headers(host_or_guest) -> {"Authorization": "Bearer ..."}
     http_mock       fakes outgoing HTTP (e.g. iTunes); unmocked requests fail the test
     make_host, make_room, make_guest, make_track, make_queue_item, make_vote
                     create a valid row with sensible defaults; override any field
 
 Tests run against a separate `crowdsurf_test` database (created automatically) and
 Redis DB 15, so running pytest never touches your local dev data.
-    auth_headers    auth_headers(host_or_guest) -> {"Authorization": "Bearer ..."}
 """
 
 import itertools
