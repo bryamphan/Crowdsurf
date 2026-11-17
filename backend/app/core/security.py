@@ -25,7 +25,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import get_settings
 from app.core.db import get_session
-from app.models import Guest, Host
+from app.models import Guest, Host, Room
 
 JWT_ALGORITHM = "HS256"
 BCRYPT_MAX_BYTES = 72  # bcrypt can't hash passwords longer than this
@@ -129,3 +129,27 @@ async def get_current_guest(
     if guest.is_kicked:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "You were removed from this room")
     return guest
+
+
+# --- Room access ------------------------------------------------------------------
+# For endpoints under /rooms/{room_id}. Take the room as a dependency instead of the id:
+#
+#     async def close_room(room: Room = Depends(get_owned_room)): ...
+
+
+async def get_room(room_id: int, session: AsyncSession = Depends(get_session)) -> Room:
+    """The room in the URL. 404 if it doesn't exist."""
+    room = await session.get(Room, room_id)
+    if room is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Room not found")
+    return room
+
+
+async def get_owned_room(
+    host: Host = Depends(get_current_host), room: Room = Depends(get_room)
+) -> Room:
+    """The room in the URL, if the logged-in host owns it. 401 if not logged in, 404 if
+    the room doesn't exist, 403 if it belongs to another host."""
+    if room.host_id != host.id:
+        raise HTTPException(status.HTTP_403_FORBIDDEN, "Only the room's host can do this")
+    return room

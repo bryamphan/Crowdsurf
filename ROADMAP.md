@@ -49,7 +49,7 @@ The first run takes a few minutes. When it's up, check:
 - http://localhost:8000/docs lists every endpoint (Swagger). You'll use this page constantly to test the backend.
 - http://localhost:5173 shows the frontend
 
-Apart from the auth endpoints, every endpoint currently returns `501 Not Implemented`. That's expected. They're stubs waiting to be built.
+Apart from the auth and playback endpoints, every endpoint currently returns `501 Not Implemented`. That's expected. They're stubs waiting to be built.
 
 Stop everything with `Ctrl+C` or `docker compose down`. Your code edits reload automatically while it's running; no need to restart.
 
@@ -76,7 +76,7 @@ In VS Code, pick `backend/.venv` as your Python interpreter (Command Palette, "P
 backend/
   app/
     main.py          start here: creates the app and registers every router
-    routers/         the endpoints, one file per resource (all stubs right now)
+    routers/         the endpoints, one file per resource (auth and playback work; the rest are stubs)
     schemas/         Pydantic classes: the shape of requests and responses
     models/          SQLAlchemy classes: one per database table
     services/        the real logic (ranking, pub/sub, iTunes client, ...)

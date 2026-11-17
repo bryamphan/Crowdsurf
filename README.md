@@ -86,7 +86,7 @@ cp .env.example .env
 docker compose up --build
 ```
 
-The API is on http://localhost:8000 (docs at `/docs`) and the frontend is on http://localhost:5173. Right now the auth endpoints work; the rest are stubs that return `501`.
+The API is on http://localhost:8000 (docs at `/docs`) and the frontend is on http://localhost:5173. Right now the auth and playback endpoints work; the rest are stubs that return `501`.
 
 ## Team
 
