@@ -153,3 +153,22 @@ async def get_owned_room(
     if room.host_id != host.id:
         raise HTTPException(status.HTTP_403_FORBIDDEN, "Only the room's host can do this")
     return room
+
+
+def ensure_room_open(room: Room) -> Room:
+    """Return the room if it's still usable. 410 if it was closed or has expired.
+
+    Use this directly when you already have the room (e.g. looked up by join code),
+    or use get_open_room below for endpoints with {room_id} in the URL.
+    """
+    if room.closed_at is not None:
+        raise HTTPException(status.HTTP_410_GONE, "This room is closed")
+    if room.expires_at <= datetime.now(UTC):
+        raise HTTPException(status.HTTP_410_GONE, "This room has expired")
+    return room
+
+
+async def get_open_room(room: Room = Depends(get_room)) -> Room:
+    """The room in the URL, if it's still open. 404 if it doesn't exist, 410 if it's
+    closed or expired. Use for join, add song, vote, and next."""
+    return ensure_room_open(room)
