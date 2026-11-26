@@ -116,7 +116,7 @@ Four people, four areas. Owning an area means you build it end to end (models, e
 |---|---|---|
 | Platform, auth, and playback | Bryan | `models/`, `alembic/versions/`, `core/security.py`, `routers/playback.py`, `tests/conftest.py` |
 | Rooms, guests, and search | Leila | `routers/rooms.py`, `routers/guests.py`, `routers/tracks.py`, `services/itunes.py`, `services/join_codes.py` |
-| Queue and voting | _TBD_ | `routers/queue.py`, `services/ranking.py`, `services/rate_limit.py` |
+| Queue and voting | Justin | `routers/queue.py`, `services/ranking.py`, `services/rate_limit.py` |
 | Real-time and frontend | _TBD_ | `services/pubsub.py`, the WebSocket in `routers/playback.py`, `frontend/src/` |
 
 Files that don't exist yet (like `services/ranking.py`) are yours to create.
